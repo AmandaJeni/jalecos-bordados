@@ -1,0 +1,286 @@
+/* =========================================================================
+   LAYOUT: o esqueleto que toda tela interna usa.
+
+   .shell      a página inteira, dividida em menu + conteúdo
+   .menu       a barra azul da esquerda (RNF-10: fica sempre no mesmo lugar)
+   .conteudo   a área branca da direita, onde cada tela desenha o que é dela
+
+   Quem escreve uma tela nova não precisa mexer aqui: é só envolver o
+   conteúdo no componente Layout. Veja src/componentes/Layout.jsx.
+   ========================================================================= */
+
+.shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 100vh;
+  background: var(--fundo);
+}
+
+/* --- Menu lateral --------------------------------------------------------- */
+
+.menu {
+  flex: 1 1 240px;
+  max-width: 260px;
+  min-width: 240px;
+  background: var(--azul);
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.menu__marca {
+  padding: 0 10px;
+}
+
+.menu__nome {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.25;
+}
+
+.menu__unidade {
+  font-size: var(--texto-apoio);
+  color: var(--azul-claro);
+  margin-top: 4px;
+}
+
+.menu__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--alvo);
+  padding: 0 14px;
+  border-radius: var(--canto);
+  color: var(--branco);
+  font-size: var(--texto-corpo);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.menu__item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--branco);
+}
+
+/* A tela aberta fica branca com texto azul. É a única pista de "onde estou",
+   então não troque por algo mais sutil. */
+.menu__item--ativo,
+.menu__item--ativo:hover {
+  background: var(--branco);
+  color: var(--azul);
+  font-weight: 600;
+}
+
+.menu__rodape {
+  margin-top: auto;
+  border-top: 1px solid var(--azul-linha);
+  padding-top: 20px;
+}
+
+.menu__usuario {
+  padding: 0 10px 12px;
+}
+
+.menu__usuario-nome {
+  font-size: var(--texto-rotulo);
+  color: var(--branco);
+  font-weight: 600;
+}
+
+.menu__usuario-papel {
+  font-size: var(--texto-miudo);
+  color: var(--azul-claro);
+  margin-top: 2px;
+}
+
+/* --- Área de conteúdo ----------------------------------------------------- */
+
+.conteudo {
+  flex: 999 1 560px;
+  min-width: 0; /* sem isto, uma tabela larga empurra a página inteira */
+  padding: 32px 36px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Cabeçalho de página: título à esquerda, botões à direita. */
+.cabecalho-pagina {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.cabecalho-pagina__subtitulo {
+  margin-top: 6px;
+  font-size: var(--texto-corpo);
+  color: var(--texto-suave);
+}
+
+.cabecalho-pagina__acoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+/* Link de voltar, usado no topo das telas de cadastro. */
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--alvo-minimo);
+  font-size: var(--texto-rotulo);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Duas colunas que viram uma só quando a tela fica estreita. */
+.colunas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Grade de cartões iguais (indicadores do painel, máquinas da produção). */
+.grade-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grade-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1100px) {
+  .grade-4,
+  .grade-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .conteudo {
+    padding: 24px 16px 40px;
+  }
+
+  .grade-4,
+  .grade-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .menu {
+    max-width: 100%;
+  }
+}
+
+/* --- Tela de entrar -------------------------------------------------------
+   É a única tela sem menu lateral: metade azul com a marca, metade com o
+   formulário. Em tela estreita as duas viram uma coluna só. */
+
+.entrar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.entrar__marca {
+  flex: 1 1 420px;
+  min-width: 320px;
+  background: var(--azul);
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.entrar__titulo {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.entrar__frase {
+  font-size: 19px;
+  line-height: 1.6;
+  color: #c7d9e9;
+  max-width: 420px;
+}
+
+.entrar__area {
+  flex: 999 1 520px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 40px;
+}
+
+.entrar__caixa {
+  width: 100%;
+  max-width: 440px;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 40px;
+}
+
+.entrar__ajuda {
+  margin-top: 8px;
+  font-size: var(--texto-corpo);
+  color: var(--texto-suave);
+}
+
+.entrar__form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 32px;
+}
+
+.entrar__erro {
+  padding: 14px 16px;
+  border-radius: var(--canto);
+  background: var(--vermelho-fundo);
+  color: var(--vermelho-texto);
+  font-size: var(--texto-rotulo);
+  line-height: 1.5;
+}
+
+.entrar__esqueci {
+  align-self: center;
+  min-height: var(--alvo-minimo);
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--texto-rotulo);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.entrar__rodape {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--divisoria);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}

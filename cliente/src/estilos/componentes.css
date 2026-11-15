@@ -1,0 +1,804 @@
+/* =========================================================================
+   COMPONENTES: as peças que se repetem em várias telas.
+
+   Antes de escrever CSS novo para a sua tela, procure aqui. Botão, campo,
+   cartão, tabela, etiqueta de situação e aviso já estão prontos. Usar o que
+   existe é o que mantém as telas parecidas entre si, que é um requisito
+   (RNF-10), não gosto pessoal.
+   ========================================================================= */
+
+/* --- Cartão ---------------------------------------------------------------
+   A caixa branca que envolve quase tudo. */
+
+.cartao {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--canto-cartao);
+}
+
+.cartao--preenchido {
+  padding: 24px;
+}
+
+.cartao__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--divisoria);
+}
+
+.cartao__rodape {
+  padding: 18px 24px;
+  border-top: 1px solid var(--divisoria);
+  font-size: var(--texto-rotulo);
+  color: var(--texto-suave);
+}
+
+.cartao__titulo {
+  margin-bottom: 20px;
+}
+
+/* --- Botões ---------------------------------------------------------------
+   Use <button> para ação e <Link className="botao"> para navegação.
+   Os dois ficam iguais porque as classes são as mesmas. */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: var(--alvo);
+  padding: 0 22px;
+  border-radius: var(--canto);
+  border: 1.5px solid var(--borda-campo);
+  background: var(--branco);
+  color: var(--texto);
+  font-size: var(--texto-rotulo);
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: #f7f9fb;
+  color: var(--texto);
+}
+
+/* Ação principal da tela. Só uma por tela, senão nenhuma se destaca. */
+.botao--primario {
+  border-color: var(--azul);
+  background: var(--azul);
+  color: var(--branco);
+  min-height: var(--alvo-grande);
+  padding: 0 26px;
+  font-size: var(--texto-corpo);
+}
+
+.botao--primario:hover {
+  background: var(--azul-escuro);
+  border-color: var(--azul-escuro);
+  color: var(--branco);
+}
+
+/* Ação secundária com a mesma altura da principal, para ficarem lado a lado. */
+.botao--grande {
+  min-height: var(--alvo-grande);
+  padding: 0 24px;
+  font-size: var(--texto-corpo);
+}
+
+/* Contorno azul, fundo branco: ação de apoio que ainda é importante. */
+.botao--contorno {
+  border-color: var(--azul);
+  color: var(--azul);
+}
+
+.botao--contorno:hover {
+  background: var(--azul-fundo);
+  color: var(--azul);
+}
+
+/* Ação destrutiva: cancelar pedido, estornar pagamento, remover.
+   Vermelha e sempre separada dos outros botões (RNF-06). */
+.botao--perigo {
+  border-color: var(--vermelho);
+  color: var(--vermelho);
+}
+
+.botao--perigo:hover {
+  background: var(--vermelho-fundo);
+  color: var(--vermelho);
+}
+
+/* Botão quadrado só com ícone. Precisa de aria-label, sempre. */
+.botao--icone {
+  min-width: var(--alvo-minimo);
+  min-height: var(--alvo-minimo);
+  padding: 0;
+  border-color: var(--borda);
+  color: var(--vermelho);
+}
+
+.botao--pequeno {
+  min-height: var(--alvo-minimo);
+  padding: 0 18px;
+  font-size: var(--texto-rotulo);
+}
+
+/* --- Grupo de escolha -----------------------------------------------------
+   Dois ou três botões onde um fica marcado, tipo "Pessoa física / jurídica".
+   Usa aria-pressed, então o leitor de tela também sabe qual está escolhido. */
+
+.escolha {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.escolha__botao {
+  min-height: var(--alvo);
+  padding: 0 24px;
+  border-radius: var(--canto);
+  border: 1.5px solid var(--azul);
+  background: var(--branco);
+  color: var(--azul);
+  font-size: var(--texto-corpo);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.escolha__botao[aria-pressed='true'] {
+  background: var(--azul);
+  color: var(--branco);
+}
+
+/* --- Campos de formulário -------------------------------------------------- */
+
+.campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 220px;
+}
+
+.campo--largo {
+  flex: 999 1 300px;
+  min-width: 240px;
+}
+
+.campo--medio {
+  flex: 0 1 270px;
+  min-width: 240px;
+}
+
+.campo--estreito {
+  flex: 0 1 170px;
+  min-width: 140px;
+}
+
+.campo__rotulo {
+  font-size: var(--texto-rotulo);
+  font-weight: 600;
+}
+
+/* "(obrigatório)" escrito por extenso em vez de asterisco (RNF-09):
+   asterisco é convenção de quem já usa sistema, não de quem está aprendendo. */
+.campo__obrigatorio {
+  color: var(--laranja);
+  font-weight: 500;
+}
+
+.campo__ajuda {
+  font-size: var(--texto-apoio);
+  color: var(--texto-suave);
+}
+
+.entrada,
+.selecao,
+.area-texto {
+  width: 100%;
+  min-height: var(--alvo);
+  padding: 0 14px;
+  font-size: var(--texto-corpo);
+  font-family: inherit;
+  color: var(--texto);
+  background: var(--branco);
+  border: 1.5px solid var(--borda-campo);
+  border-radius: var(--canto);
+}
+
+.selecao {
+  padding: 0 12px;
+}
+
+.area-texto {
+  padding: 12px 14px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.entrada[readonly] {
+  background: var(--fundo);
+  color: var(--texto-suave);
+  border-color: var(--borda);
+}
+
+/* Caixa de marcar com o texto do lado, tudo clicável junto. */
+.marcador {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: var(--alvo);
+  font-size: var(--texto-corpo);
+  cursor: pointer;
+}
+
+.marcador input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--azul);
+  flex: 0 0 auto;
+}
+
+/* --- Etiqueta de situação -------------------------------------------------
+   A bolinha mais o texto. Nunca mostre só a bolinha: quem não distingue
+   as cores precisa ler a palavra (RNF-04). */
+
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--canto-pilula);
+  font-size: var(--texto-apoio);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.etiqueta__ponto {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: 0 0 auto;
+}
+
+.etiqueta--verde    { background: var(--verde-fundo);     color: var(--verde-texto); }
+.etiqueta--amarelo  { background: var(--amarelo-fundo);   color: var(--amarelo-texto); }
+.etiqueta--roxo     { background: var(--roxo-fundo);      color: var(--roxo-texto); }
+.etiqueta--azul     { background: var(--azulclaro-fundo); color: var(--azulclaro-texto); }
+.etiqueta--ciano    { background: var(--ciano-fundo);     color: var(--ciano-texto); }
+.etiqueta--cinza    { background: var(--cinza-fundo);     color: var(--cinza-texto); }
+.etiqueta--vermelho { background: var(--vermelho-fundo);  color: var(--vermelho-texto); }
+
+/* --- Aviso ---------------------------------------------------------------
+   A faixa colorida com um ícone e uma frase. Escrita como frase normal,
+   não como código de erro (RNF-08). */
+
+.aviso {
+  border-radius: var(--canto-cartao);
+  padding: 18px 22px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+
+.aviso__texto {
+  flex: 999 1 320px;
+  min-width: 260px;
+  font-size: var(--texto-corpo);
+}
+
+.aviso--info {
+  background: var(--azul-fundo);
+  border: 1px solid var(--azul-claro);
+  color: #1a3a58;
+}
+
+.aviso--atencao {
+  background: var(--amarelo-fundo);
+  border: 1px solid #fcd34d;
+  color: #78350f;
+}
+
+.aviso--destaque {
+  background: #f7f4fd;
+  border: 1.5px solid #d8cceb;
+  color: #4c3575;
+  align-items: flex-start;
+}
+
+/* --- Tabela ---------------------------------------------------------------
+   Toda tabela vai dentro de uma div.rolagem, senão uma tabela larga
+   empurra a página inteira para o lado. */
+
+.rolagem {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--texto-rotulo);
+}
+
+.tabela th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: var(--texto-apoio);
+  color: var(--texto-suave);
+  font-weight: 600;
+  background: var(--cabecalho-tabela);
+  border-bottom: 1px solid var(--divisoria);
+  white-space: nowrap;
+}
+
+.tabela td {
+  padding: 16px;
+  border-bottom: 1px solid var(--linha-tabela);
+  vertical-align: top;
+}
+
+/* Primeira e última coluna respiram mais perto da borda do cartão. */
+.tabela th:first-child,
+.tabela td:first-child {
+  padding-left: 24px;
+}
+
+.tabela th:last-child,
+.tabela td:last-child {
+  padding-right: 24px;
+}
+
+.tabela caption {
+  text-align: left;
+  padding: 18px 24px;
+  font-size: var(--texto-apoio);
+  color: var(--texto-suave);
+}
+
+.alinhar-direita {
+  text-align: right;
+}
+
+.alinhar-centro {
+  text-align: center;
+}
+
+.destaque {
+  font-weight: 600;
+}
+
+/* Linha com fundo diferente: produto no mínimo, tarefa concluída. */
+.linha--atencao { background: #fffbeb; }
+.linha--perigo  { background: #fef2f2; }
+.linha--calma   { background: #fafbfc; }
+.linha--ativa   { background: #f2f7fc; }
+
+/* --- Lista de registros ---------------------------------------------------
+   Alternativa à tabela quando cada registro tem duas ou três informações. */
+
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lista__item {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--linha-tabela);
+  min-height: var(--alvo);
+}
+
+.lista__item:last-child {
+  border-bottom: 0;
+}
+
+.lista__link {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 24px;
+  min-height: var(--alvo);
+  text-decoration: none;
+  color: inherit;
+}
+
+.lista__link:hover {
+  background: #f7f9fb;
+  color: inherit;
+}
+
+.lista__principal {
+  flex: 999 1 auto;
+  min-width: 0;
+}
+
+.lista__titulo {
+  display: block;
+  font-size: var(--texto-corpo);
+  font-weight: 600;
+}
+
+.lista__detalhe {
+  display: block;
+  font-size: var(--texto-apoio);
+  color: var(--texto-suave);
+  margin-top: 2px;
+}
+
+/* Círculo com as iniciais do cliente. */
+.inicial {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--azul);
+  color: var(--branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--texto-rotulo);
+  font-weight: 700;
+}
+
+.inicial--grande {
+  width: 52px;
+  height: 52px;
+  font-size: 19px;
+}
+
+/* --- Lista de dados (rótulo e valor) -------------------------------------- */
+
+.dados {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 16px;
+  font-size: var(--texto-rotulo);
+}
+
+.dados dt {
+  color: var(--texto-suave);
+}
+
+.dados dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* --- Barra de ocupação (fila de produção) --------------------------------- */
+
+.barra {
+  margin-top: 14px;
+  height: 10px;
+  border-radius: var(--canto-pilula);
+  background: #e8edf2;
+  overflow: hidden;
+}
+
+.barra__preenchida {
+  height: 100%;
+}
+
+/* --- Totais ---------------------------------------------------------------- */
+
+.totais {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px 32px;
+  font-size: var(--texto-corpo);
+}
+
+.totais dt {
+  color: var(--texto-suave);
+}
+
+.totais dd {
+  margin: 0;
+  text-align: right;
+}
+
+.totais__linha-final {
+  font-size: 20px;
+  font-weight: 700;
+  padding-top: 8px;
+  border-top: 1px solid var(--divisoria);
+}
+
+/* --- Barra de ações do rodapé do formulário ------------------------------- */
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 24px;
+}
+
+.acoes--separadas {
+  justify-content: space-between;
+}
+
+/* --- Lista clicável -------------------------------------------------------
+   Quando o item da lista escolhe algo na própria tela (em vez de navegar),
+   ele é um <button>, não um <a>. Estas regras tiram a aparência de botão
+   e devolvem a de linha de lista. */
+
+.lista__botao {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 16px 24px;
+  min-height: var(--alvo);
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--texto-corpo);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lista__botao:hover {
+  background: #f7f9fb;
+}
+
+/* Etiqueta neutra de tipo de cliente, sem bolinha. */
+.marca-tipo {
+  flex: 0 0 auto;
+  padding: 5px 12px;
+  border-radius: var(--canto-pilula);
+  background: #eef2f6;
+  color: #44505e;
+  font-size: var(--texto-miudo);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* --- Colunas de lista e detalhe (tela de clientes) ------------------------ */
+
+.coluna-lista {
+  flex: 999 1 420px;
+  min-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.coluna-detalhe {
+  flex: 1 1 380px;
+  min-width: 330px;
+}
+
+/* --- Cartão de indicador (painel) ---------------------------------------- */
+
+.indicador {
+  display: block;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--canto-cartao);
+  padding: 20px 22px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.indicador:hover {
+  border-color: var(--azul);
+  color: inherit;
+}
+
+.indicador__rotulo {
+  font-size: var(--texto-apoio);
+  color: var(--texto-suave);
+  font-weight: 500;
+  min-height: 42px;
+}
+
+.indicador__valor {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.indicador__numero {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* --- Prazo de entrega ----------------------------------------------------- */
+
+.prazo--atrasado {
+  color: var(--vermelho);
+  font-weight: 600;
+}
+
+.prazo--proximo {
+  color: var(--laranja);
+  font-weight: 600;
+}
+
+/* --- Horário destacado (tarefas do painel) -------------------------------- */
+
+.hora {
+  flex: 0 0 auto;
+  min-width: 58px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--azul-fundo);
+  color: var(--azul);
+  font-size: var(--texto-apoio);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* --- Cartão de matriz ----------------------------------------------------- */
+
+.matriz {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.matriz__previa {
+  height: 160px;
+  background: #eef2f6;
+  border-bottom: 1px solid var(--divisoria);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #6b7785;
+  font-size: var(--texto-miudo);
+}
+
+.matriz__corpo {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+}
+
+.matriz__topo {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.matriz__acoes {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* --- Item da fila de produção --------------------------------------------- */
+
+.tarefa {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--linha-tabela);
+}
+
+.tarefa__horario {
+  flex: 0 0 auto;
+  min-width: 74px;
+  text-align: center;
+}
+
+.tarefa__hora {
+  font-size: 19px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.tarefa__descricao {
+  flex: 999 1 240px;
+  min-width: 200px;
+}
+
+.tarefa__titulo {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.tarefa__maquina {
+  flex: 0 0 auto;
+  min-width: 164px;
+}
+
+.tarefa__situacao {
+  flex: 0 0 auto;
+  min-width: 124px;
+}
+
+.tarefa__acoes {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* --- Paginação ------------------------------------------------------------ */
+
+.paginacao {
+  display: flex;
+  gap: 8px;
+}
+
+.paginacao button {
+  min-width: var(--alvo);
+  min-height: var(--alvo-minimo);
+  padding: 0 16px;
+  border-radius: var(--canto);
+  border: 1.5px solid var(--borda-campo);
+  background: var(--branco);
+  font-size: var(--texto-rotulo);
+  font-family: inherit;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.paginacao button[aria-current='page'] {
+  border-color: var(--azul);
+  background: var(--azul);
+  color: var(--branco);
+  font-weight: 600;
+}
+
+/* --- Legenda de cores ------------------------------------------------------ */
+
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.legenda__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--texto-apoio);
+}
+
+.legenda__cor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+/* Coluna que não pode quebrar no meio, como número de pedido. */
+.sem-quebra {
+  white-space: nowrap;
+}

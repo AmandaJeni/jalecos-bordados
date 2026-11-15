@@ -1,0 +1,135 @@
+/* =========================================================================
+   BASE: variáveis, reset e tipografia.
+
+   Toda cor, tamanho e espaçamento do sistema sai daqui. Se você precisar de
+   uma cor nova, acrescente uma variável neste arquivo em vez de escrever o
+   hexadecimal solto no seu componente. Assim o sistema inteiro continua
+   parecendo uma coisa só.
+
+   Os tamanhos de fonte e de alvo de clique vêm dos requisitos não funcionais
+   de usabilidade (RNF-01 a RNF-11). O sistema vai ser usado por pessoas mais
+   velhas e com pouca familiaridade com computador, então nada aqui é
+   decoração: diminuir qualquer um desses números quebra um requisito.
+   ========================================================================= */
+
+:root {
+  /* --- Cores da marca --------------------------------------------------- */
+  --azul: #1f4e79;          /* cor principal: menu, botões, links */
+  --azul-escuro: #163a5a;   /* link com o cursor em cima */
+  --azul-claro: #b9cee2;    /* texto secundário dentro do menu */
+  --azul-linha: #3a6a96;    /* divisória dentro do menu */
+  --azul-fundo: #e8f0f8;    /* fundo de aviso informativo */
+
+  /* --- Cores neutras ---------------------------------------------------- */
+  --fundo: #f4f6f8;          /* fundo da página */
+  --branco: #ffffff;         /* fundo dos cartões */
+  --texto: #1a1d21;          /* texto normal */
+  --texto-suave: #5a6472;    /* texto de apoio, rótulos de tabela */
+  --borda: #d4dae1;          /* borda dos cartões */
+  --borda-campo: #b9c2cc;    /* borda de campo de formulário */
+  --divisoria: #e4e8ed;      /* linha que separa blocos dentro do cartão */
+  --linha-tabela: #eef1f4;   /* linha entre registros da tabela */
+  --cabecalho-tabela: #f7f9fb;
+
+  /* --- Cores de situação ------------------------------------------------
+     Cada situação tem um fundo claro e um texto escuro que passa no
+     contraste AA. Nunca use só a cor para informar alguma coisa: o
+     componente Etiqueta sempre mostra a bolinha e o texto junto (RNF-04). */
+  --verde-fundo: #dcfce7;    --verde-texto: #15803d;
+  --amarelo-fundo: #fef3c7;  --amarelo-texto: #92400e;
+  --roxo-fundo: #ede9fe;     --roxo-texto: #5b21b6;
+  --azulclaro-fundo: #dbeafe; --azulclaro-texto: #1e40af;
+  --ciano-fundo: #cffafe;    --ciano-texto: #155e75;
+  --cinza-fundo: #e5e7eb;    --cinza-texto: #374151;
+  --vermelho-fundo: #fee2e2; --vermelho-texto: #991b1b;
+  --vermelho: #b91c1c;       /* ação destrutiva: cancelar, estornar */
+  --laranja: #b45309;        /* atenção: prazo apertado, campo obrigatório */
+
+  /* --- Tamanhos de texto (RNF-01) --------------------------------------- */
+  --texto-titulo: 30px;      /* h1 da página */
+  --texto-secao: 22px;       /* h2 dentro de cartão */
+  --texto-corpo: 17px;       /* parágrafo e campo de formulário */
+  --texto-rotulo: 16px;      /* rótulo de campo, botão secundário */
+  --texto-apoio: 15px;       /* explicação abaixo do campo */
+  --texto-miudo: 14px;       /* legenda, matrícula */
+
+  /* --- Alvos de clique (RNF-03) ------------------------------------------
+     O mínimo exigido é 44px. Usamos 48px na maioria e 52px nos botões
+     principais, que é o que o protótipo validado tinha. */
+  --alvo-minimo: 44px;
+  --alvo: 48px;
+  --alvo-grande: 52px;
+
+  /* --- Cantos e sombras -------------------------------------------------- */
+  --canto: 8px;        /* botões, campos */
+  --canto-cartao: 10px;
+  --canto-pilula: 999px;
+}
+
+/* --- Reset enxuto -------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--texto-corpo);
+  color: var(--texto);
+  background: var(--fundo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--texto-titulo);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: var(--texto-secao);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+a {
+  color: var(--azul);
+}
+
+a:hover {
+  color: var(--azul-escuro);
+}
+
+/* O contorno de foco é como quem navega pelo teclado sabe onde está.
+   Não remova. Se precisar mudar, mude a cor, nunca para "outline: none". */
+:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+}
+
+/* Classes curtas de texto, usadas em várias telas. */
+.texto-suave {
+  color: var(--texto-suave);
+}
+
+.texto-apoio {
+  font-size: var(--texto-apoio);
+  color: var(--texto-suave);
+}
+
+.numero {
+  font-variant-numeric: tabular-nums; /* alinha os dígitos em coluna */
+}
